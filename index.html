@@ -3,147 +3,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WARIS-404 | Future Blog</title>
+    <title>WarisVerse | Football • Tech • K-Drama • News</title>
     
-    <!-- Cyberpunk Design -->
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
-            --neon-blue: #0ff0fc;
-            --matrix-green: #00ff41;
+            --primary: #1a1a2e;
+            --secondary: #4cc9f0;
+            --accent: #f72585;
+            --tech: #4361ee;
+            --football: #4ad66d;
+            --kdrama: #f15bb5;
+            --nollywood: #fee440;
         }
+        
         body {
-            background: #0a0a12 url('bg-stars.jpg') fixed;
-            font-family: 'Rajdhani', sans-serif;
-            color: white;
-            margin: 0;
-            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
         }
-        nav {
-            backdrop-filter: blur(16px);
-            background: rgba(0, 0, 20, 0.8);
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--neon-blue);
-            display: flex;
-            justify-content: space-around;
+        
+        /* Dynamic Category Colors */
+        .tech-bg { background: var(--tech); }
+        .football-bg { background: var(--football); }
+        .kdrama-bg { background: var(--kdrama); }
+        .nollywood-bg { background: var(--nollywood); }
+        
+        /* Modern Card Design */
+        .article-card {
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
         }
-        nav a {
-            color: var(--neon-blue);
-            text-decoration: none;
-            font-size: 1.2rem;
-            transition: 0.3s;
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
-        nav a:hover {
-            text-shadow: 0 0 10px var(--neon-blue);
-        }
-        .post {
-            background: rgba(10, 10, 30, 0.7);
-            border: 1px solid var(--neon-blue);
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
-            margin: 2rem auto;
-            padding: 2rem;
-            max-width: 800px;
-            border-radius: 8px;
-        }
-        #mood-globe {
+        
+        /* Floating AI Assistant */
+        #ai-assistant {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 200px;
-            height: 200px;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(247, 37, 133, 0.4);
         }
     </style>
 </head>
 <body>
-    <!-- Voice Command Trigger -->
-    <button id="voice-btn" style="position:fixed;bottom:20px;left:20px;background:var(--neon-blue);border:none;padding:10px;border-radius:50%;cursor:pointer;">🎤</button>
-
     <!-- Navigation -->
-    <nav>
-        <a href="#">🏠 Home</a>
-        <a href="#">🗂️ Categories</a>
-        <a href="#">🤖 AI Summary</a>
-        <a href="#">💬 Comments</a>
-        <a href="#">🌙 Dark Mode</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">WarisVerse</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="#" data-category="all">All</a></li>
+                    <li class="nav-item"><a class="nav-link football-bg" href="#" data-category="football">Football</a></li>
+                    <li class="nav-item"><a class="nav-link tech-bg" href="#" data-category="tech">Technology</a></li>
+                    <li class="nav-item"><a class="nav-link kdrama-bg" href="#" data-category="kdrama">K-Drama</a></li>
+                    <li class="nav-item"><a class="nav-link nollywood-bg" href="#" data-category="nollywood">Nollywood</a></li>
+                </ul>
+                <div class="d-flex">
+                    <input class="form-control" type="search" placeholder="Search..." id="search-input">
+                    <button class="btn btn-outline-light ms-2">Search</button>
+                </div>
+            </div>
+        </div>
     </nav>
 
-    <!-- Blog Posts -->
-    <div class="post">
-        <h2>Digital Minimalism in 2025</h2>
-        <p>How to declutter your digital life with AI...</p>
-        <button onclick="summarize(this.parentElement)">🔍 AI Summary</button>
+    <!-- Live News Ticker -->
+    <div class="bg-primary text-white py-2">
+        <div class="container">
+            <marquee id="news-ticker">
+                Loading latest updates...
+            </marquee>
+        </div>
     </div>
 
-    <!-- 3D Mood Globe -->
-    <div id="mood-globe"></div>
+    <!-- Main Content -->
+    <div class="container my-5">
+        <div class="row">
+            <!-- Articles Section -->
+            <div class="col-lg-8">
+                <h2 class="mb-4" id="current-category">Latest Updates</h2>
+                <div id="articles-container">
+                    <!-- Articles will be loaded here dynamically -->
+                    <div class="text-center my-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- Live Football Scores -->
+                <div class="card mb-4">
+                    <div class="card-header football-bg text-white">
+                        <h5><i class="fas fa-futbol me-2"></i>Live Scores</h5>
+                    </div>
+                    <div class="card-body" id="live-scores">
+                        Loading matches...
+                    </div>
+                </div>
+                
+                <!-- K-Drama Release Calendar -->
+                <div class="card mb-4">
+                    <div class="card-header kdrama-bg text-white">
+                        <h5><i class="fas fa-calendar-alt me-2"></i>K-Drama Releases</h5>
+                    </div>
+                    <div class="card-body" id="kdrama-releases">
+                        Loading upcoming dramas...
+                    </div>
+                </div>
+                
+                <!-- AI Summary Generator -->
+                <div class="card mb-4">
+                    <div class="card-header tech-bg text-white">
+                        <h5><i class="fas fa-robot me-2"></i>AI Summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <textarea class="form-control mb-2" id="ai-text" placeholder="Paste article text"></textarea>
+                        <button class="btn btn-sm btn-primary" id="generate-summary">Summarize</button>
+                        <div id="ai-result" class="mt-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- Giscus Comments -->
-    <script src="https://giscus.app/client.js" data-repo="WARIS-404/WARIS-404.github.io" data-repo-id="YOUR_REPO_ID" async></script>
+    <!-- AI Assistant Button -->
+    <div id="ai-assistant" title="Ask WarisAI">
+        <i class="fas fa-robot fa-lg text-white"></i>
+    </div>
 
-    <!-- All Scripts -->
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
     <script>
-        // Voice Navigation
-        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-        recognition.onresult = (e) => {
-            const command = e.results[0][0].transcript.toLowerCase();
-            if (command.includes('search')) {
-                window.location = `/search?q=${command.replace('search', '').trim()}`;
-            }
-        };
-        document.getElementById('voice-btn').addEventListener('click', () => recognition.start());
-
-        // AI Summarizer
-        async function summarize(postElement) {
-            const text = postElement.innerText;
-            const response = await fetch('https://api.openai.com/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Authorization': 'Bearer YOUR_OPENAI_KEY',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    model: 'gpt-4',
-                    messages: [{role: 'user', content: `Summarize in 1 sentence: ${text}`}]
-                })
-            });
-            const data = await response.json();
-            alert(data.choices[0].message.content);
-        }
-
-        // Dark Mode Toggle
-        const darkModeToggle = document.querySelector('a[href*="Dark"]');
-        darkModeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-            localStorage.setItem('darkMode', document.body.classList.contains('light-mode') ? 'off' : 'on');
-        });
-    </script>
-
-    <!-- Three.js Mood Globe (Simplified) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script>
-        // Simplified 3D globe - full version would be 100+ lines
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true });
-        renderer.setSize(200, 200);
-        document.getElementById('mood-globe').appendChild(renderer.domElement);
+        // ======================
+        // CORE FUNCTIONALITY
+        // ======================
         
-        const geometry = new THREE.SphereGeometry(5, 32, 32);
-        const material = new THREE.MeshBasicMaterial({ 
-            color: 0x00ff41,
-            wireframe: true 
-        });
-        const sphere = new THREE.Mesh(geometry, material);
-        scene.add(sphere);
-        camera.position.z = 8;
-
-        function animate() {
-            requestAnimationFrame(animate);
-            sphere.rotation.x += 0.01;
-            sphere.rotation.y += 0.01;
-            renderer.render(scene, camera);
+        // 1. Dynamic Content Loader
+        async function loadContent(category = 'all') {
+            try {
+                // Simulate API fetch (in real app, connect to NewsAPI/FootballAPI/etc)
+                const mockData = {
+                    football: [
+                        {title: "Premier League: Arsenal Defeats Chelsea 3-1", excerpt: "Match analysis and highlights from the London derby", category: "football"},
+                        {title: "Super Eagles Squad Announcement", excerpt: "Nigeria's roster for upcoming AFCON qualifiers", category: "football"}
+                    ],
+                    tech: [
+                        {title: "AI Breakthrough: GPT-5 Announced", excerpt: "OpenAI reveals next-gen language model capabilities", category: "tech"},
+                        {title: "Nigeria's Tech Startup Funding Hits $1B", excerpt: "2023 investment trends in African tech", category: "tech"}
+                    ],
+                    kdrama: [
+                        {title: "King the Land Season 2 Confirmed", excerpt: "JTBC announces sequel to hit romantic comedy", category: "kdrama"},
+                        {title: "Upcoming K-Dramas July 2023", excerpt: "New releases to add to your watchlist", category: "kdrama"}
+                    ],
+                    nollywood: [
+                        {title: "Jagun Jagun: The Warrior - Review", excerpt: "Netflix's epic Yoruba film breaks records", category: "nollywood"},
+                        {title: "Best Nigerian Films of 2023", excerpt: "Top Nollywood productions this year", category: "nollywood"}
+                    ]
+                };
+                
+                let articles = [];
+                if (category === 'all') {
+                    articles = [...mockData.football, ...mockData.tech, ...mockData.kdrama, ...mockData.nollywood];
+                } else {
+                    articles = mockData[category];
+                }
+                
+                renderArticles(articles);
+                document.getElementById('current-category').textContent = 
+                    category === 'all' ? 'Latest Updates' : `${category.charAt(0).toUpperCase() + category.slice(1)} News`;
+                
+            } catch (error) {
+                console.error("Error loading content:", error);
+            }
         }
-        animate();
+        
+        // 2. Render Articles
+        function renderArticles(articles) {
+            const container = document.getElementById('articles-container');
+            container.innerHTML = articles.map(article => `
+                <div class="card article-card mb-4">
+                    <div class="card-body">
+                        <span class="badge ${article.category}-bg mb-2">${article.category.toUpperCase()}</span>
+                        <h5 class="card-title">${article.title}</h5>
+                        <p class="card-text">${article.excerpt}</p>
+                        <button class="btn btn-sm btn-outline-primary read-more">Read More</button>
+                        <div class="mt-2">
+                            <button class="btn btn-sm btn-outline-secondary summary-btn" data-text="${article.title}. ${article.excerpt}">
+                                <i class="fas fa-robot"></i> AI Summary
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Add event listeners to new buttons
+            document.querySelectorAll('.summary-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.getElementById('ai-text').value = btn.dataset.text;
+                });
+            });
+        }
+        
+        // 3. News Ticker (Simulated)
+        function updateNewsTicker() {
+            const ticker = document.getElementById('news-ticker');
+            const news = [
+                "Breaking: Nigeria qualifies for AFCON 2023 | ",
+                "New K-Drama 'Destined With You' premieres next week | ",
+                "Tech: Apple announces iOS 17 release date | ",
+                "Nollywood: 'The Black Book' hits Netflix Top 10 globally"
+            ];
+            ticker.innerHTML = news.join(' • ');
+        }
+        
+        // 4. AI Summary Generator (Simulated)
+        document.getElementById('generate-summary').addEventListener('click', async () => {
+            const text = document.getElementById('ai-text').value;
+            if (!text) return;
+            
+            const resultDiv = document.getElementById('ai-result');
+            resultDiv.innerHTML = '<div class="spinner-border spinner-border-sm"></div> Generating...';
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                resultDiv.innerHTML = `
+                    <div class="alert alert-success">
+                        <strong>Summary:</strong> ${text.split(' ').slice(0, 20).join(' ')}... [This would be a real AI summary in production]
+                    </div>
+                `;
+            }, 1500);
+        });
+        
+        // 5. AI Assistant
+        document.getElementById('ai-assistant').addEventListener('click', () => {
+            alert("WarisAI: Hi! I can help you find articles or generate summaries. Try asking: 'Show me football news' or 'Summarize this article'");
+        });
+        
+        // ======================
+        // INITIALIZATION
+        // ======================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load default content
+            loadContent();
+            updateNewsTicker();
+            
+            // Category switcher
+            document.querySelectorAll('[data-category]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    loadContent(link.dataset.category);
+                });
+            });
+            
+            // Simulate live scores
+            setInterval(() => {
+                document.getElementById('live-scores').innerHTML = `
+                    <p>⚽ Arsenal 2-1 Chelsea (72')</p>
+                    <p>⚽ Nigeria 0-0 Ghana (HT)</p>
+                    <p>⚽ Bayern 3-0 Dortmund (FT)</p>
+                `;
+            }, 5000);
+            
+            // Simulate K-Drama releases
+            document.getElementById('kdrama-releases').innerHTML = `
+                <p>📺 <strong>King the Land</strong> - New episode every Sat/Sun</p>
+                <p>📺 <strong>Destined With You</strong> - Coming Aug 23</p>
+            `;
+        });
     </script>
 </body>
-        </html>
+                        </html>
